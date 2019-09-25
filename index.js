@@ -11,7 +11,7 @@ const app = express();
 // 'res.send' sends json object user is trying to request
 //second argument is an arrow function that is called automatically when a request is made by '/'
 app.get('/', (req, res) => {
-    res.send({ hi: 'there' });
+    res.send({ hi: 'imran' });
 });
 
 //heroku will run application and inject env variables,
