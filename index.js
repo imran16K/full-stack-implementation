@@ -1,9 +1,26 @@
 // will use common js modules
 const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const keys = require('./configs/keys');
+require('./models/User');
+require('./services/passport');
 
+mongoose.connect(keys.mongoURI);
 
 //calling express by a function generates a new application
 const app = express();
+
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey]
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //invoking the function being called in from services
 require('./routes/authRoutes')(app);
@@ -14,9 +31,7 @@ require('./routes/authRoutes')(app);
 //'req' is an object representing the incoming requests, 'res' is an object representing the outgoing response
 // 'res.send' sends json object user is trying to request
 //second argument is an arrow function that is called automatically when a request is made by '/'
-/*app.get('/', (req, res) => {
-    res.send({ hi: 'imran' });
-});*/
+
 
 //heroku will run application and inject env variables,
 //env variables are vars that are set in the underlying runtime that node runs on top of
