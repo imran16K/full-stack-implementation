@@ -1,15 +1,12 @@
 // will use common js modules
 const express = require('express');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 
 //calling express by a function generates a new application
 const app = express();
 
-//"passport.use" is a function call that registers authentication with a new strategy
-//"new GoogleStrategy" creates a new instance of the google passport strategy
-//authenticates user with google inside of function which contains a constructor for configuration
-passport.use(new GoogleStrategy());
+//invoking the function being called in from services
+require('./routes/authRoutes')(app);
 
 //route handler
 //this handler is exposed to the 'get' method, this watches for incoming requests

@@ -8,13 +8,18 @@
     "npm": "6.11.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Imran Kirkwood",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "nodemon": "^1.19.2",
     "passport": "^0.4.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth": "^2.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
   }
 }
