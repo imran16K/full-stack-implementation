@@ -12,6 +12,8 @@ mongoose.connect(keys.mongoURI);
 //calling express by a function generates a new application
 const app = express();
 
+//middleware are small function that are used to modify incoming request from
+//our app before being sent off to route handlers
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
