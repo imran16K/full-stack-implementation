@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./configs/keys');
 require('./models/User');
 require('./services/passport');
@@ -14,6 +15,8 @@ const app = express();
 
 //middleware are small function that are used to modify incoming request from
 //our app before being sent off to route handlers
+
+app.use(bodyParser.json());
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -26,7 +29,18 @@ app.use(passport.session());
 
 //invoking the function being called in from services
 require('./routes/authRoutes')(app);
+require('./routes/BillingRoutes')(app);
 
+if (process.env.NODE_ENV === 'production') {
+    //express will serve up production assets like main.js file
+    app.use(express.static('client/build'));
+
+    //express will serve up the index.js file if the route is not recognized
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 //route handler
 //this handler is exposed to the 'get' method, this watches for incoming requests
 // '/' forward slashes watches for requests trying to be accessed

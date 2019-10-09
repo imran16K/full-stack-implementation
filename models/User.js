@@ -6,7 +6,8 @@ const { Schema } = mongoose;
 
 //creating schema, will describe what every individual record will look like
 const userSchema = new Schema({
-   googleId: String
+   googleId: String,
+   credits: { type: Number, default:0 }
 });
 
 //create model class to tell mongoose that it needs to be aware of new collection created
